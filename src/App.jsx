@@ -25,7 +25,7 @@ function App() {
       ) : (
         {
           path: '/',
-          element: <Login />,
+          element: <Login setToken={setToken} />,
           errorElement: <ErrorPage />
         }
       )
