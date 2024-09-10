@@ -1,11 +1,14 @@
-import { Outlet, NavLink } from "react-router-dom"
+import { Outlet, NavLink } from "react-router-dom";
+// React Hot Toast
+import toast, { Toaster } from "react-hot-toast";
 
 function RootLayoutStaff() {
   return (
     <>
-        <h2>Staff</h2>
+      <Toaster />
+      <h2>Staff</h2>
     </>
-  )
+  );
 }
 
-export default RootLayoutStaff
+export default RootLayoutStaff;

@@ -3,22 +3,27 @@ import { useRef, useState } from "react"
 import toast, { Toaster } from "react-hot-toast";
 
 import http from "../../services/http";
-import App from "../../App";
 
-function Login({setToken}) {
+function Login({setAccess, setRefresh, setUserType}) {
   const loginInput = useRef(null);
   const passInput = useRef(null);
 
   const onLogin = (e) => {
     e.preventDefault();
-    http.post('/login', {
-      email: loginInput.current.value,
-      password: passInput.current.value
+    http.post('/token/', {
+      // weayaa_id: loginInput.current.value,
+      // password: passInput.current.value
+      weayaa_id: 'staff_user',
+      password: 'staff_user2024'
     })
     .then((res) => {
-      setToken(res.data.token);
-      window.localStorage.setItem('token', res.data.token);
+      setAccess(res.data.access);
+      setRefresh(res.data.refresh);
+      // setUserType(res.request.status);
+      window.localStorage.setItem('access', res.data.access);
+      window.localStorage.setItem('refresh', res.data.refresh);
       toast.success('You have successfully sign in!');
+      console.log(res)
     })
     .catch(() => {
       toast.error('ID or Password went wrong!');
@@ -33,13 +38,13 @@ function Login({setToken}) {
           
           <form className="max-w-sm mx-auto w-[360px]" onSubmit={onLogin}>
 
-            <div className="text-center font-bold text-[24px]">
-              <h2>Sign In</h2>
+            <div className="text-center font-bold text-[32px] pb-5">
+              <h2>Log in</h2>
             </div>
 
             <div className="mb-5">
-              <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">Your Email</label>
-              <input ref={loginInput} type="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="name@flowbite.com" required />
+              <label htmlFor="text" className="block mb-2 text-sm font-medium text-gray-900">Your ID</label>
+              <input ref={loginInput} type="text" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="ShahbozShirinboyev" required />
             </div>
 
             <div className="mb-5">

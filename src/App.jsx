@@ -10,22 +10,34 @@ import RootLayoutMaster from "./layouts/RootLayoutMaster";
 import Login from "./pages/Auth/Login";
 import ErrorPage from "./pages/Error/ErrorPage"
 
-function App() {
+function App({ response }) {
 
-  const [token, setToken] = useState(window.localStorage.getItem("token"));
+
+  const [access, setAccess] = useState(window.localStorage.getItem("access"));
+  const [refresh, setRefresh] = useState(window.localStorage.getItem("refresh"))
+  // const [userType, setUserType] = useState(window.localStorage.getItem("userType"));
+  const [userType, setUserType] = useState('123');
+
 
   const routes = createBrowserRouter(
     [
-      token ? (
+      access && refresh ? (
+        userType === '123' ?
         {
           path: '/',
-          element: <RootLayoutStaff />,
+          element: <RootLayoutMaster />, // userType = master bo'lsa RootLayoutMaster ochiladi
+          errorElement: <ErrorPage />
+        }
+        :
+        {
+          path: '/',
+          element: <RootLayoutStaff />, // userType = staff bo'lsa RootLayoutStaff ochiladi
           errorElement: <ErrorPage />
         }
       ) : (
         {
           path: '/',
-          element: <Login setToken={setToken} />,
+          element: <Login setAccess={setAccess} setRefresh={setRefresh} setUserType={setUserType}  />,
           errorElement: <ErrorPage />
         }
       )
